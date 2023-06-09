@@ -2,15 +2,19 @@
 
 import {reactive, watch} from "vue";
 
+// paramètres de la requête fetch
 const fetchOptions = {method: "GET"};
+// url de l'API
 let url = "https://webmmi.iut-tlse3.fr/~pecatte/librairies/public/1/livres";
+// Création d'un tableau de livre réactive
 let listeLivre = reactive([]);
+// Définition des props pcritere et newLivre
 const props = defineProps({
   pcritere: String,
   newLivre: Object,
 });
 
-
+// fonction de chargement des livres en fonction du critère de recherche si défini
 function loadLivres(critere) {
   if(critere) {
     url = "https://webmmi.iut-tlse3.fr/~pecatte/librairies/public/1/livres?search=" + critere;
@@ -31,10 +35,12 @@ function loadLivres(critere) {
       })
 }
 
+// chargement des livres si le critère de recherche change
 watch(props, (newcritere) => {
   loadLivres(newcritere.pcritere);
 });
 
+// ajout d'un livre si newLivre change
 watch(() => props.newLivre, (l) => {
   let headers = new Headers();
   headers.append("Content-Type", "application/json");
@@ -61,6 +67,7 @@ watch(() => props.newLivre, (l) => {
       });
 });
 
+// suppression d'un livre
 function supprimerLivre(id) {
   const options = {
     method: "DELETE",
@@ -77,6 +84,7 @@ function supprimerLivre(id) {
       });
 }
 
+// modification + de la quantité d'un livre
 function augmenterQuantite(livre) {
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -102,6 +110,7 @@ function augmenterQuantite(livre) {
       });
 }
 
+// modification - de la quantité d'un livre
 function diminuerQuantite(livre) {
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -127,6 +136,7 @@ function diminuerQuantite(livre) {
       });
 }
 
+// récupération d'un livre par son id
 function fetchLivreById(id) {
   fetch(url + "/" + id, fetchOptions)
       .then((response) => {

@@ -1,18 +1,21 @@
 <script setup>
 import { reactive} from "vue";
+
+// Création d'un objet réactif avec des propriétés initiales
 const livre = reactive({
   titre: "",
   qtestock: 0,
   prix: 0,
 });
 
-//fonction reset
+//fonction de réinitialisation de l'objet livre
 const reset = () => {
   livre.titre = "";
   livre.qtestock = 0;
   livre.prix = 0;
 };
 
+//fonction de gestion de l'événement submit pour l'ajout d'un livre
 const handlerForReset = () => {
   reset();
 };

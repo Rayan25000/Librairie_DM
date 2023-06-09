@@ -1,6 +1,10 @@
 <script setup>
 import { ref } from "vue";
+
+// creation d'une variable reactive
 const critere = ref("");
+
+
 /* TODO: search null : msg aucun livre disponible */
 
 </script>
